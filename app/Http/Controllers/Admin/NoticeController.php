@@ -12,7 +12,7 @@ class NoticeController extends Controller
 {
     public function notice_view(Request $request)
     {
-        $n=Notice::paginate(3);
+        $n=Notice::all();
         return $n;
     }
     public function notice_delete(Request $req)

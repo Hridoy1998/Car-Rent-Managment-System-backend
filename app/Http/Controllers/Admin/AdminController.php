@@ -26,13 +26,13 @@ class AdminController extends Controller
 
     public function custorans_list()
     {
-        $customers= User::where('type','=','Customer')->paginate(10);
+        $customers= User::where('type','=','Customer')->get();
 
         return $customers;
     }
     public function renter_list()
     {
-        $renter= User::where('type','=','Renter')->paginate(10);
+        $renter= User::where('type','=','Renter')->get();
 
         return $renter;
     }
@@ -47,7 +47,7 @@ class AdminController extends Controller
     }
     public function cars_list()
     {
-        $carlist=CarService::paginate(8);
+        $carlist=CarService::all();
 
         return $carlist;
     }

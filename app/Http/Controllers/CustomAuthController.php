@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Customer;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\BlockUser;
@@ -67,7 +68,7 @@ class CustomAuthController extends Controller
         ]);
         $b_user = BlockUser::where('email','=',$request->email)->first();
         if($b_user){
-            return back()->with('fail', 'This Account got Blocked');
+            return 'The User has been Block !';
         }
         else{
 
@@ -97,35 +98,27 @@ class CustomAuthController extends Controller
         // }
 
         if($user){
-            if(Hash::check($request->password, $user->password)){
+            if($request->password == $user->password)
+            {
               if($user->type=='Customer'){
-                $request->session()->put('Customer', $user->type);
-                   $request->session()->put('CUname', $user->username);
-                   $request->session()->put('Cid', $user->id);
-                 return redirect('dashboard_customer');
+                 return 'Customer';
               }
               elseif($user->type=='Renter'){
-                $request->session()->put('Renter', $user->type);
-                  $request->session()->put('RUname', $user->username);
-                  $request->session()->put('Rid', $user->id);
-                  return redirect('dashboard_renter');
+                  return 'Renter';
               }
               else{
-                $request->session()->put('Admin', $user->type);
-                $request->session()->put('email', $user->email);
-                $request->session()->put('UserID', $user->id);
-                  return redirect(route('admin dashboard'));
+                  return 'Admin';
               }
 
 
             }
              else{
 
-                  return back()->with('fail', 'Incorrect Password');
+                  return 'Incorrect Password';
               }
 
           }else{
-              return back()->with('fail', 'this email is not registered');
+              return 'this email is not registered';
           }
         }
     }

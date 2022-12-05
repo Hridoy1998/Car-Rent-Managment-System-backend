@@ -26,7 +26,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/login',[CustomAuthController::class,'login'])->name('login');
+Route::get('/login',[CustomAuthController::class,'login']);
 Route::get('registration',[CustomAuthController::class,'registration']);
 
 Route::post('register-user',[CustomAuthController::class,'registerUser']);
@@ -36,7 +36,7 @@ Route::get('dashboard_admin',[AdminController::class,'dashboard_admin']);
 
 Route::get('Users_Add_By_Admin',[AdminController::class,'users_add_by_admin']);
 
-Route::get('Admin_custorans_List',[AdminController::class,'custorans_list']);
+Route::get('custorans_List',[AdminController::class,'custorans_list']);
 Route::get('Renter_List',[AdminController::class,'renter_list']);
 
 Route::get('User_Details/{id}',[AdminController::class,'user_details']);

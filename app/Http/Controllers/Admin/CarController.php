@@ -59,13 +59,13 @@ class CarController extends Controller
     }
     public function edit_car_view(Request $req)
     {
-        $car_edit=CarService::where('id','=',decrypt($req->id))->first();
+        $car_edit=CarService::where('id','=',$req->id)->first();
         // return $car_edit;
         return $car_edit;
     }
     public function edit_car(Request $request)
     {
-        $car=CarService::where('id','=',decrypt($request->edit_id))->first();
+        $car=CarService::where('id','=',($request->edit_id))->first();
         $car->car_name=$request->car_name;
         $car->car_model=$request->car_model;
         $car->car_type=$request->car_type;
@@ -99,7 +99,7 @@ class CarController extends Controller
     }
     public function delete_car(Request $req)
     {
-        $car_edit=CarService::where('id','=',decrypt($req->id))->first();
+        $car_edit=CarService::where('id','=',($req->id))->first();
         $car_edit->delete();
         $res=$car_edit;
           if($res){
@@ -126,7 +126,7 @@ class CarController extends Controller
     }
     public function single_car_details_view(Request $req)
     {
-        $Clist=CarService::where('id','=',decrypt($req->id))->first();
+        $Clist=CarService::where('id','=',($req->id))->first();
 
         return $Clist;
     }

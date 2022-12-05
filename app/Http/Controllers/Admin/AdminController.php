@@ -87,12 +87,12 @@ class AdminController extends Controller
     }
     public function user_details(Request $request)
     {
-        $s_user=User ::all()->where('id','=',decrypt($request->id));
+        $s_user=User ::all()->where('id','=',$request->id);
         return $s_user;
     }
     public function blockuser_details(Request $request)
     {
-        $s_user=BlockUser ::all()->where('id','=',decrypt($request->id));
+        $s_user=BlockUser ::all()->where('id','=',$request->id);
         return $s_user;
     }
 }

@@ -17,7 +17,7 @@ class NoticeController extends Controller
     }
     public function notice_delete(Request $req)
     {
-        $n=Notice::where('id','=',decrypt($req->id))->first();
+        $n=Notice::where('id','=',($req->id))->first();
         $res = $n->delete();
 
         if($res){
@@ -28,12 +28,12 @@ class NoticeController extends Controller
     }
     public function notice_edit_view(Request $req)
     {
-        $n=Notice::where('id','=',decrypt($req->id))->first();
+        $n=Notice::where('id','=',($req->id))->first();
         return $n;
     }
     public function notice_edit(Request $req)
     {
-        $n=Notice::where('id','=',decrypt($req->id))->first();
+        $n=Notice::where('id','=',($req->id))->first();
         $n->notice_date= $req->notice_date;
         $n->notice=$req->notice;
         $res = $n->save();

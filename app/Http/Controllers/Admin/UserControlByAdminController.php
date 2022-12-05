@@ -66,7 +66,7 @@ class UserControlByAdminController extends Controller
 
     public function users_edit(Request $req)
     {
-        $s_user=User::all()->where('id','=',decrypt($req->id));
+        $s_user=User::all()->where('id','=',($req->id));
         return $s_user;
     }
     public function edit(Request $request)
@@ -87,7 +87,7 @@ class UserControlByAdminController extends Controller
             'pp'=>'mimes:jpg,jpeg,png',
 
           ]);
-          $user = User:: find (decrypt($request->edit_id));
+          $user = User:: find (($request->edit_id));
 
           $user->first_name = $request->first_name;
           $user->last_name = $request->last_name;

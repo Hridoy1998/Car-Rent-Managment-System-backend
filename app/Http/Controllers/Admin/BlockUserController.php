@@ -14,7 +14,7 @@ class BlockUserController extends Controller
 
     public function add_block(Request $req)
     {
-        $s_user=User :: find (decrypt($req->id) );
+        $s_user=User :: find ($req->id);
         $s_user->block_status = 1;
         $s_user->save();
 
@@ -46,7 +46,7 @@ class BlockUserController extends Controller
     }
     public function delete_block(Request $req)
     {
-        $b_user=BlockUser :: find (decrypt($req->id) );
+        $b_user=BlockUser :: find ($req->id) ;
         $status=$b_user->user_id;
         $user=User::find($status);
         $user->block_status=0;

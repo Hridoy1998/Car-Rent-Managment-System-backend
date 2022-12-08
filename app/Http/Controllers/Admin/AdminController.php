@@ -16,11 +16,10 @@ use Illuminate\Pagination\Paginator;
 
 class AdminController extends Controller
 {
-    public function dashboard_admin(Request $req)
+    public function dashboard_admin()
     {
-        $n= $req->session()->get('email');
 
-        $s_user=User ::all()->where('email','=',$n);
+        $s_user=User ::all()->where('id','=',1)->first();
         return view('Admin_Pages.dashboard_admin')->with('s_user',$s_user);
     }
 

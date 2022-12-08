@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Customer;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Token;
 use App\Models\BlockUser;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use DateTime;
 
 class CustomAuthController extends Controller
 {
@@ -101,13 +104,34 @@ class CustomAuthController extends Controller
             if($request->password == $user->password)
             {
               if($user->type=='Customer'){
-                 return 'Customer';
+                $api_token = Str::random(64);
+                $token = new Token();
+                $token->userid = $user->id;
+                $token->token = $api_token;
+                $token->type = $user->type;
+                $token->created_at = new DateTime();
+                $token->save();
+                return $token;
               }
               elseif($user->type=='Renter'){
-                  return 'Renter';
+                $api_token = Str::random(64);
+                $token = new Token();
+                $token->userid = $user->id;
+                $token->token = $api_token;
+                $token->type = $user->type;
+                $token->created_at = new DateTime();
+                $token->save();
+                return $token;
               }
               else{
-                  return 'Admin';
+                $api_token = Str::random(64);
+                $token = new Token();
+                $token->userid = $user->id;
+                $token->token = $api_token;
+                $token->type = $user->type;
+                $token->created_at = new DateTime();
+                $token->save();
+                return $token;
               }
 
 
@@ -148,4 +172,62 @@ class CustomAuthController extends Controller
 
         return redirect(route('login'));
     }
+    public function loginU(Request $request)
+    {
+        // $request->validate([
+        //     'email'=>'required|email',
+        //     'password'=>'required|min:3|max:12'
+        //   ]);
+          $b_user = BlockUser::where('email','=',$request->email)->first();
+          if($b_user){
+              return 'The User has been Block !';
+          }
+          else{
+  
+          $user = User::where('email','=',$request->email)->where('password',$request->password)->first();
+          if($user){
+              if($user->type=='Customer'){
+                $api_token = Str::random(64);
+                $token = new Token();
+                $token->userid = $user->id;
+                $token->token = $api_token;
+                $token->type = $user->type;
+                $token->created_at = new DateTime();
+                $token->save();
+                return $token;
+                // return "Customer";
+              }
+              elseif($user->type=='Renter'){
+                $api_token = Str::random(64);
+                $token = new Token();
+                $token->userid = $user->id;
+                $token->token = $api_token;
+                $token->type = $user->type;
+                $token->created_at = new DateTime();
+                $token->save();
+                return $token;
+                // return "Renter";
+              }
+              else{
+                $api_token = Str::random(64);
+                $token = new Token();
+                $token->userid = $user->id;
+                $token->token = $api_token;
+                $token->type = $user->type;
+                $token->created_at = new DateTime();
+                $token->save();
+                return $token;
+                // return "Admin";
+              }
+
+
+            }
+
+          else{
+              return 'worng input ...!';
+          }
+          }
+    }
+
+    
 }

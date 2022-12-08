@@ -13,48 +13,48 @@ class UserControlByAdminController extends Controller
 {
     public function users_add(Request $request)
     {
-        $request->validate([
-            'role'=>'required',
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'username'=>'required|unique:users',
-            'email'=>'required|email|unique:users',
-            'Date_of_birth'=>'required',
-            'gender'=>'required',
-            'phone_number'=>'required',
-            'address'=>'required',
-            'nid_number'=>'required',
-            'dl_number'=>'required',
-            'password'=>'required|min:3|max:12',
-            'pp'=>'mimes:jpg,jpeg,png',
+        // $request->validate([
+        //     'role'=>'required',
+        //     'first_name'=>'required',
+        //     'last_name'=>'required',
+        //     'username'=>'required|unique:users',
+        //     'email'=>'required|email|unique:users',
+        //     'Date_of_birth'=>'required',
+        //     'gender'=>'required',
+        //     'phone_number'=>'required',
+        //     'address'=>'required',
+        //     'nid_number'=>'required',
+        //     'dl_number'=>'required',
+        //     'password'=>'required|min:3|max:12',
+        //     'pp'=>'mimes:jpg,jpeg,png',
 
 
-          ]);
+        //   ]);
           $user = new User();
 
           $user->first_name = $request->first_name;
           $user->last_name = $request->last_name;
           $user->username = $request->username;
           $user->email = $request->email;
-          $user->dob = $request->Date_of_birth;
+          $user->dob = $request->dob;
           $user->gender = $request->gender;
           $user->phone_number = $request->phone_number;
           $user->address = $request->address;
           $user->nid_number = $request->nid_number;
           $user->dl_number = $request->dl_number;
-          $user->password = Hash::make ($request->password);
-          $user->type = $request->role;
-          if($request->pp==null)
-          {
-            $user->pp= "user.png";
+          $user->password = ($request->password);
+          $user->type = $request->type;
+        //   if($request->pp==null)
+        //   {
+        //     $user->pp= "user.png";
 
-          }
-          else
-          {
-            $file_name = time().".".$request->file('pp')->getClientOriginalExtension();
-            $request->file('pp')->move(public_path('pp'),$file_name);
-            $user->pp = $file_name;
-          }
+        //   }
+        //   else
+        //   {
+        //     $file_name = time().".".$request->file('pp')->getClientOriginalExtension();
+        //     $request->file('pp')->move(public_path('pp'),$file_name);
+        //     $user->pp = $file_name;
+        //   }
           $user->block_status = 0;
           $res = $user->save();
           if($res){

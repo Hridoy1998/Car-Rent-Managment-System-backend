@@ -47,6 +47,8 @@ class BlockUserController extends Controller
     public function delete_block(Request $req)
     {
         $b_user=BlockUser :: find ($req->id) ;
+        if($b_user)
+        {
         $status=$b_user->user_id;
         $user=User::find($status);
         $user->block_status=0;
@@ -57,6 +59,10 @@ class BlockUserController extends Controller
         }else{
             return 'Something Went Wrong';
         }
+    }
+    else{
+        return 'not found';
+    }
     }
     public function block_users_search(Request $req)
     {

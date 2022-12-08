@@ -16,23 +16,28 @@ use Illuminate\Pagination\Paginator;
 
 class AdminController extends Controller
 {
-    public function dashboard_admin(Request $req)
+    public function dashboard_admin(Request $rep)
     {
-        $n= $req->session()->get('email');
-
-        $s_user=User ::all()->where('email','=',$n);
-        return view('Admin_Pages.dashboard_admin')->with('s_user',$s_user);
+        $id = $rep->id;
+        $s_user=User ::all()->where('id','=',$id)->first();
+        if($s_user)
+        {
+            return $s_user;
+        }
+        else{
+            return"not found";
+        }
     }
 
     public function custorans_list()
     {
-        $customers= User::where('type','=','Customer')->get();
+        $customers= User::where('type','=','Customer')->where('block_status','=',0)->get();
 
         return $customers;
     }
     public function renter_list()
     {
-        $renter= User::where('type','=','Renter')->get();
+        $renter= User::where('type','=','Renter')->where('block_status','=',0)->get();
 
         return $renter;
     }

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserControlByAdminController;
 use App\Http\Controllers\Admin\BlockUserController;
@@ -10,6 +9,14 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\AdminApprovalController;
 use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\LoginAPIController;
+
+///////
+use App\Http\Controllers\renter\RenterController;
+use App\Http\Controllers\renter\car_service_renter_controller;
+
+////
+use App\Http\Controllers\customer\car_service_customer_controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,8 +95,63 @@ Route::get('search_user_result',[UserControlByAdminController::class,'users_sear
 
 Route::get('Posts_Mannage',[AdminController::class,'posts_mannage'])->middleware('admin')->name('posts mannage');
 Route::get('Reviews_Manage',[AdminController::class,'reviews_manage'])->middleware('admin')->name('reviews manage');
+//////////
+
+Route::get('dashboard_renter',[RenterController::class,'dashboard_renter'])->middleware('renter')->name('renter dashboard');
+Route::get('addNewCar',[car_service_renter_controller::class,'addNewCar'])->middleware('renter')->name('addNewCar');
+Route::post('addNewCar',[car_service_renter_controller::class,'addNewCarRenter'])->middleware('renter')->name('addNewCarRenter');
+Route::delete('delete',[car_service_renter_controller::class,'deleteCar'])->middleware('renter')->name('delete');
+Route::get('carlist',[car_service_renter_controller::class,'Carlist'])->middleware('renter')->name('carlist');
+Route::get('editCarlist/{id}',[car_service_renter_controller::class,'editCarlist'])->middleware('renter')->name('editCarlist');
+Route::post('editCarlistSubmit',[car_service_renter_controller::class,'editCarlistSubmit'])->middleware('renter')->name('editCarlistSubmit');
+Route::get('profile',[RenterController::class,'profile'])->middleware('renter')->name('profile');
+
+Route::get('singleViewApproval/{id}',[car_service_renter_controller::class,'singleViewApproval'])->middleware('renter')->name('singleViewApproval');
+
+Route::post('acceptApproval',[car_service_renter_controller::class,'acceptApproval'])->middleware('renter')->name('acceptApproval');
+Route::post('deleteApproval',[car_service_renter_controller::class,'deleteApproval'])->middleware('renter')->name('deleteApproval');
+
+
+Route::post('search_view_user',[car_service_renter_controller::class,'search_view_user_list'])->middleware('renter')->name('search_view_user_list');
+
+Route::get('postCarVideo',[car_service_renter_controller::class,'postCarVideo'])->middleware('renter')->name('postCarVideo');
+Route::post('postNewCarVideo',[car_service_renter_controller::class,'postNewCarVideo'])->middleware('renter')->name('postNewCarVideo');
+Route::get('video_list',[car_service_renter_controller::class,'videolist'])->middleware('renter')->name('videolist');
+
+Route::get('notices',[RenterController::class,'notices'])->middleware('renter')->name('notices');
+
+
+Route::get('messageslist',[RenterController::class,'renter_message_list'])->middleware('renter')->name('messageslist');
+Route::get('message_view/{id}',[RenterController::class,'message_view'])->middleware('renter')->name('message_view');
+Route::post('send_message',[RenterController::class,'send_message'])->middleware('renter')->name('send_message');
+
+Route::get('editProfile',[RenterController::class,'editProfile'])->middleware('renter')->name('editProfile');
+Route::post('editProfile',[RenterController::class,'editProfileSubmit'])->middleware('renter')->name('editProfileSubmit');
+///////
+
+Route::get('dashboard_customer',[car_service_customer_controller::class,'dashboard_customer'])->middleware('customer')->name('customer dashboard');
+Route::get('edit_profile',[car_service_customer_controller::class,'edit_profile'])->middleware('customer')->name('edit_profile');
+Route::post('edit_profile',[car_service_customer_controller::class,'edit_profile_submit'])->name('edit_profile_submit');
+
+
+Route::get('messageCustomer',[car_service_customer_controller::class,'messageCustomer'])->middleware('customer')->name('messageCustomer');
+Route::get('my_posts',[car_service_customer_controller::class,'my_posts'])->middleware('customer')->name('my_posts');
+Route::get('my_posts_edit/{id}',[car_service_customer_controller::class,'my_posts_edit'])->middleware('customer')->name('my_posts_edit');
+Route::post('my_posts_edit',[car_service_customer_controller::class,'my_posts_edit_submit'])->name('my_posts_edit_submit');
+Route::get('my_posts_delete/{id}',[car_service_customer_controller::class,'my_posts_delete'])->middleware('customer')->name('my_posts_delete');
+Route::get('post_for_a_car',[car_service_customer_controller::class,'post_for_a_car'])->middleware('customer')->name('post_for_a_car');
+Route::post('post_for_a_car',[car_service_customer_controller::class,'post_for_a_car_submit'])->name('post_for_a_car_submit');
+Route::get('view_car_list',[car_service_customer_controller::class,'view_car_list'])->middleware('customer')->name('view_car_list');
+Route::get('view_car_list_details/{id}',[car_service_customer_controller::class,'view_car_list_details'])->middleware('customer')->name('view_car_list_details');
+Route::post('search_view_car_list',[car_service_customer_controller::class,'search_view_car_list'])->middleware('customer')->name('search_view_car_list');
+Route::get('car_rent/{id}',[car_service_customer_controller::class,'car_rent_view'])->middleware('customer')->name('rent_view');
+Route::get('payment_view/{id}',[car_service_customer_controller::class,'payment'])->middleware('customer')->name('payment');
+Route::post('payment_done',[car_service_customer_controller::class,'done'])->middleware('customer')->name('done');
+Route::get('check_notices',[car_service_customer_controller::class,'check_notices'])->middleware('customer')->name('check_notices');
+
+
 
 //
-Route::get('dashboard_renter',[CustomAuthController::class,'dashboard_renter'])->middleware('renter');
-Route::get('dashboard_customer',[CustomAuthController::class,'dashboard_customer'])->middleware('customer');
+// Route::get('dashboard_renter',[CustomAuthController::class,'dashboard_renter'])->middleware('renter');
+// Route::get('dashboard_customer',[CustomAuthController::class,'dashboard_customer'])->middleware('customer');
 Route::get('logout',[CustomAuthController::class,'logout'])->name('logout');

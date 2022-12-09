@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\BlockUser;
 use App\Models\Token;
 use Illuminate\Support\Str;
+use App\Notifications\ApprovalNotification;
 use DateTime;
 
 class LoginAPIController extends Controller
@@ -20,7 +21,6 @@ class LoginAPIController extends Controller
         else{
 
         $user = User::where('email',$req->email)->where('password',$req->password)->first();
-
 
         if($user){
             $api_token = Str::random(64);

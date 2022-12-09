@@ -95,6 +95,12 @@ Route::get('search_user_result',[UserControlByAdminController::class,'users_sear
 
 Route::get('Posts_Mannage',[AdminController::class,'posts_mannage'])->middleware('admin')->name('posts mannage');
 Route::get('Reviews_Manage',[AdminController::class,'reviews_manage'])->middleware('admin')->name('reviews manage');
+
+Route::get('/send_notification',[AdminController::class,'notification']);
+
+
+
+
 //////////
 
 Route::get('dashboard_renter',[RenterController::class,'dashboard_renter'])->middleware('renter')->name('renter dashboard');

@@ -102,6 +102,8 @@ Route::get('search_user_result',[UserControlByAdminController::class,'users_sear
 Route::get('Posts_Mannage',[AdminController::class,'posts_mannage']);
 Route::get('Reviews_Manage',[AdminController::class,'reviews_manage']);
 
+Route::post('send_notification',[AdminController::class,'notification']);
+
 //
 Route::post('logout',[LoginAPIController::class,'logout']);
 

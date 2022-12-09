@@ -8,11 +8,16 @@ use App\Models\User;
 use App\Models\BlockUser;
 use App\Models\CarService;
 use App\Http\Controllers\Admin\Session;
+use App\Mail\AdminApprovelMail;
 use App\Models\AdminApproval;
 use App\Models\Approval;
 use App\Models\RentHistory;
 use App\Models\RentMessage;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ApprovalNotification;
+use Illuminate\Mail\SentMessage;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -99,5 +104,25 @@ class AdminController extends Controller
     {
         $s_user=BlockUser ::all()->where('id','=',$request->id);
         return $s_user;
+    }
+
+
+
+    public function notification(Request $request)
+    {
+        $user = User::where('id','=',$request->id)->pluck('email');
+        if($user)
+        {
+            // $user->notify(new ApprovalNotification());
+            $my="mdhidoyhassan@gmail.com";
+            $message="Hi there";
+            // Notification::send($user, new ApprovalNotification());
+            // Mail::to($my)->send(new AdminApprovelMail($message));
+            return $user;
+        }
+        else
+        {
+            return "no";
+        }
     }
 }

@@ -72,8 +72,8 @@ Route::get('Cars_List',[AdminController::class,'cars_list']);
 
                                     //approval
 Route::get('Admin_Approval',[AdminController::class,'admin_approval']);
-Route::post('approv_add',[AdminApprovalController::class,'approv_add']);
-Route::post('approv_delete',[AdminApprovalController::class,'approv_delete']);
+Route::get('approv_add/{id}',[AdminApprovalController::class,'approv_add']);
+Route::get('approv_delete/{id}',[AdminApprovalController::class,'approv_delete']);
 Route::get('single_approvals_details/{id}',[AdminApprovalController::class,'single_approvals_details']);
 
                                     ///History
